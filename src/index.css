@@ -1,7 +1,7 @@
 :root {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #334155;
-  background-color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #eaeff2;
 }
 
 *, *::before, *::after {
@@ -13,57 +13,61 @@
 body {
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
 h1, h2, h3 {
-  color: #0f172a;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
 button {
-  padding: 10px 16px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background-color: #e0e0e0;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 button:hover {
-  background-color: #f1f5f9;
+  background-color: #d0d0d0;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 button.primary {
-  background-color: #0ea5e9;
+  background-color: #3498db;
   color: white;
 }
 
 button.primary:hover {
-  background-color: #0284c7;
+  background-color: #2980b9;
 }
 
 button.danger {
-  background-color: #ef4444;
+  background-color: #e74c3c;
   color: white;
 }
 
 button.danger:hover {
-  background-color: #dc2626;
+  background-color: #c0392b;
 }
 
 input, select {
-  padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
   font-size: 14px;
-  color: #334155;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.3s ease;
 }
 
 input:focus, select:focus {
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }

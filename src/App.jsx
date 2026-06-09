@@ -75,8 +75,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>ParkFlow Pro</h1>
-        <p>Sistema Avanzado de Gestión de Estacionamientos</p>
+        <h1>Sistema de Gestión de Estacionamientos</h1>
         <div style={{ marginTop: '10px', fontSize: '1.2em', fontWeight: 'bold', color: cuposDisponibles > 0 ? '#0ea5e9' : '#ef4444' }}>
           Cupos Disponibles: {cuposDisponibles} / {CUPOS_TOTALES}
         </div>
