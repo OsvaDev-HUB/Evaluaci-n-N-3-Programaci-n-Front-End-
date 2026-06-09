@@ -115,6 +115,11 @@
   opacity: 0.85;
 }
 
+.vehicle-card.is-permanente {
+  border-left: 4px solid #f1c40f;
+  background-color: #fffdf5;
+}
+
 .vehicle-header {
   display: flex;
   justify-content: space-between;

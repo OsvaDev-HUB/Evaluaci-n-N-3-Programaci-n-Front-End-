@@ -7,13 +7,17 @@ function VehicleForm({ onAddVehicle }) {
     modelo: '',
     horaEntrada: '',
     cliente: '',
+    permanente: false,
   });
 
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
+    }));
     if (error) setError('');
   };
 
@@ -42,6 +46,7 @@ function VehicleForm({ onAddVehicle }) {
       modelo: '',
       horaEntrada: '',
       cliente: '',
+      permanente: false,
     });
   };
 
@@ -113,6 +118,18 @@ function VehicleForm({ onAddVehicle }) {
             onChange={handleChange}
             className="form-input"
           />
+        </div>
+
+        <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
+          <input
+            type="checkbox"
+            id="permanente"
+            name="permanente"
+            checked={formData.permanente}
+            onChange={handleChange}
+            style={{ width: 'auto' }}
+          />
+          <label htmlFor="permanente" style={{ marginBottom: 0 }}>Es abonado (permanente)</label>
         </div>
 
         <button type="submit" className="primary" style={{ marginTop: '0.5rem' }}>

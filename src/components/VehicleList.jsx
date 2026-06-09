@@ -14,7 +14,7 @@ function VehicleList({ vehicles, onUpdateStatus }) {
         {vehicles.map((vehicle) => (
           <div 
             key={vehicle.id} 
-            className={`vehicle-card glass-panel status-${vehicle.estado}`}
+            className={`vehicle-card status-${vehicle.estado} ${vehicle.permanente ? 'is-permanente' : ''}`}
           >
             <div className="vehicle-header">
               <span className="vehicle-plate">{vehicle.patente}</span>
