@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "patente": "AB-CD-12",
+    "marca": "Toyota",
+    "modelo": "Yaris",
+    "horaEntrada": "08:30",
+    "cliente": "Juan Pérez",
+    "estado": "estacionado"
+  },
+  {
+    "id": "2",
+    "patente": "EF-GH-34",
+    "marca": "Chevrolet",
+    "modelo": "Spark",
+    "horaEntrada": "09:15",
+    "cliente": "María Gómez",
+    "estado": "retirado"
+  },
+  {
+    "id": "3",
+    "patente": "IJ-KL-56",
+    "marca": "Suzuki",
+    "modelo": "Swift",
+    "horaEntrada": "10:00",
+    "cliente": "Carlos López",
+    "estado": "estacionado"
+  }
+]

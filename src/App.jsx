@@ -1,122 +1,116 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect } from 'react';
+import VehicleForm from './components/VehicleForm';
+import VehicleList from './components/VehicleList';
+import FilterBar from './components/FilterBar';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [vehicles, setVehicles] = useState([]);
+  const [filterText, setFilterText] = useState('');
+  const [filterStatus, setFilterStatus] = useState('todos');
+  const [isLoading, setIsLoading] = useState(true);
+
+  const CUPOS_TOTALES = 10;
+  const vehiculosEstacionados = vehicles.filter(v => v.estado === 'estacionado').length;
+  const cuposDisponibles = CUPOS_TOTALES - vehiculosEstacionados;
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const storedVehicles = localStorage.getItem('parkedVehicles');
+
+        if (storedVehicles) {
+          setVehicles(JSON.parse(storedVehicles));
+          setIsLoading(false);
+        } else {
+          const response = await fetch('/data.json');
+          if (!response.ok) throw new Error('Error al cargar datos');
+          const data = await response.json();
+          setVehicles(data);
+          localStorage.setItem('parkedVehicles', JSON.stringify(data));
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Error cargando los datos iniciales:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchInitialData();
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem('parkedVehicles', JSON.stringify(vehicles));
+    }
+  }, [vehicles, isLoading]);
+
+  const handleAddVehicle = (newVehicleData) => {
+    if (cuposDisponibles <= 0) {
+      alert("No hay cupos disponibles en el estacionamiento.");
+      return;
+    }
+
+    const newVehicle = {
+      ...newVehicleData,
+      id: Date.now().toString(),
+    };
+    setVehicles(prev => [...prev, newVehicle]);
+  };
+
+  const handleUpdateStatus = (id, newStatus) => {
+    setVehicles(prev =>
+      prev.map(vehicle =>
+        vehicle.id === id ? { ...vehicle, estado: newStatus } : vehicle
+      )
+    );
+  };
+
+  const filteredVehicles = vehicles.filter(vehicle => {
+    const matchesText = vehicle.patente.toLowerCase().includes(filterText.toLowerCase());
+    const matchesStatus = filterStatus === 'todos' || vehicle.estado === filterStatus;
+    return matchesText && matchesStatus;
+  });
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-container">
+      <header className="app-header">
+        <h1>ParkFlow Pro</h1>
+        <p>Sistema Avanzado de Gestión de Estacionamientos</p>
+        <div style={{ marginTop: '10px', fontSize: '1.2em', fontWeight: 'bold', color: cuposDisponibles > 0 ? '#0ea5e9' : '#ef4444' }}>
+          Cupos Disponibles: {cuposDisponibles} / {CUPOS_TOTALES}
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      {isLoading ? (
+        <div className="loading-state">Cargando sistema...</div>
+      ) : (
+        <main className="main-content">
+          <aside className="sidebar">
+            <VehicleForm onAddVehicle={handleAddVehicle} />
+          </aside>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <section className="content">
+            <FilterBar
+              filterText={filterText}
+              onFilterTextChange={setFilterText}
+              filterStatus={filterStatus}
+              onFilterStatusChange={setFilterStatus}
+            />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            <VehicleList
+              vehicles={filteredVehicles}
+              onUpdateStatus={handleUpdateStatus}
+            />
+          </section>
+        </main>
+      )}
+
+      <footer style={{ textAlign: 'center', padding: '20px', marginTop: '20px', borderTop: '1px solid #e2e8f0', color: '#64748b' }}>
+        <p>Evaluación 3 - Programación Front End | Sistema de Gestión de Estacionamientos</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
