@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "patente": "AB-CD-12",
+    "marca": "Toyota",
+    "modelo": "Yaris",
+    "horaEntrada": "08:30",
+    "cliente": "Juan Pérez",
+    "estado": "estacionado"
+  },
+  {
+    "id": "2",
+    "patente": "EF-GH-34",
+    "marca": "Chevrolet",
+    "modelo": "Spark",
+    "horaEntrada": "09:15",
+    "cliente": "María Gómez",
+    "estado": "retirado"
+  },
+  {
+    "id": "3",
+    "patente": "IJ-KL-56",
+    "marca": "Suzuki",
+    "modelo": "Swift",
+    "horaEntrada": "10:00",
+    "cliente": "Carlos López",
+    "estado": "estacionado"
+  },
+  {
+    "id": "4",
+    "patente": "QWER-99",
+    "marca": "Honda",
+    "modelo": "Civic",
+    "horaEntrada": "10:30",
+    "cliente": "Ana Rojas",
+    "estado": "estacionado"
+  },
+  {
+    "id": "5",
+    "patente": "TYUI-88",
+    "marca": "Nissan",
+    "modelo": "Sentra",
+    "horaEntrada": "11:00",
+    "cliente": "Pedro Soto",
+    "estado": "estacionado"
+  },
+  {
+    "id": "6",
+    "patente": "ASDF-77",
+    "marca": "Kia",
+    "modelo": "Rio",
+    "horaEntrada": "11:45",
+    "cliente": "Luisa Silva",
+    "estado": "retirado"
+  },
+  {
+    "id": "7",
+    "patente": "ZXCV-66",
+    "marca": "Ford",
+    "modelo": "Fiesta",
+    "horaEntrada": "12:15",
+    "cliente": "Miguel Paz",
+    "estado": "estacionado"
+  }
+]
