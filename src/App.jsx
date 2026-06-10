@@ -8,6 +8,7 @@ function App() {
   const [vehicles, setVehicles] = useState([]);
   const [filterText, setFilterText] = useState('');
   const [filterStatus, setFilterStatus] = useState('todos');
+  const [filterPermanent, setFilterPermanent] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const CUPOS_TOTALES = 10;
@@ -69,7 +70,8 @@ function App() {
   const filteredVehicles = vehicles.filter(vehicle => {
     const matchesText = vehicle.patente.toLowerCase().includes(filterText.toLowerCase());
     const matchesStatus = filterStatus === 'todos' || vehicle.estado === filterStatus;
-    return matchesText && matchesStatus;
+    const matchesPermanent = !filterPermanent || vehicle.permanente;
+    return matchesText && matchesStatus && matchesPermanent;
   });
 
   return (
@@ -95,6 +97,8 @@ function App() {
               onFilterTextChange={setFilterText}
               filterStatus={filterStatus}
               onFilterStatusChange={setFilterStatus}
+              filterPermanent={filterPermanent}
+              onFilterPermanentChange={setFilterPermanent}
             />
 
             <VehicleList
